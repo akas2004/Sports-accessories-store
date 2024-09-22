@@ -1,0 +1,60 @@
+<%- include('./partials/header') %>
+
+<div class="w-full h-screen flex flex-col gap-10 p-20">
+    <!-- Checkout Page -->
+    <div class="w-full bg-white rounded-md shadow-md px-10 py-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Checkout</h3>
+
+        <!-- Billing Information -->
+        <div class="mb-6">
+            <h4 class="text-lg font-semibold text-gray-700">Billing Information</h4>
+            <form action="/checkout/complete" method="post">
+                <div class="mt-4 space-y-4">
+                    <div class="flex gap-4">
+                        <input type="text" name="name" class="w-1/2 p-2 border rounded-md" placeholder="Full Name" required>
+                        <input type="text" name="email" class="w-1/2 p-2 border rounded-md" placeholder="Email Address" required>
+                    </div>
+                    <input type="text" name="address" class="w-full p-2 border rounded-md" placeholder="Shipping Address" required>
+                    <input type="text" name="city" class="w-full p-2 border rounded-md" placeholder="City" required>
+                    <input type="text" name="zip" class="w-full p-2 border rounded-md" placeholder="ZIP Code" required>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-gray-700">Payment Method</h4>
+                    <div class="mt-4">
+                        <select name="paymentMethod" class="w-full p-3 border rounded-md" required>
+                            <option value="" disabled selected>Select Payment Method</option>
+                            <option value="card">Pay with Card</option>
+                            <option value="cod">Cash on Delivery</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="mt-8">
+                    <h4 class="text-lg font-semibold text-gray-700">Order Summary</h4>
+                    <div class="flex justify-between py-2">
+                        <span>Total Price</span>
+                        <span>₹ <%= totalAmount %></span>
+                    </div>
+                    <div class="flex justify-between py-2">
+                        <span>Platform Fee</span>
+                        <span>₹ <%= platformFee %></span>
+                    </div>
+                    <div class="flex justify-between py-2 font-bold">
+                        <span>Total</span>
+                        <span>₹ <%= totalAmount + platformFee %></span>
+                    </div>
+                </div>
+
+                <!-- Payment Button -->
+                <button type="submit" class="w-full mt-6 bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 transition">
+                    Confirm and Pay
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

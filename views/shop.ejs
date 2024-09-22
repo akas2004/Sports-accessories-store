@@ -1,0 +1,86 @@
+<%- include('./partials/header') %>
+
+<!-- Main Container -->
+<div class="w-full min-h-screen bg-gray-100 py-24 px-5"> <!-- Increased top padding to 24 to account for navbar -->
+    <div class="flex flex-col md:flex-row gap-10">
+        
+        <!-- Sidebar Section -->
+        <div class="w-full md:w-1/4 bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-6 border-b-2 border-gray-300 pb-3">Sort & Filter</h3>
+
+            <!-- Sort By Section (Popular and Newest) -->
+            <div class="mb-8">
+                <form id="sortForm" action="/shop" method="get">
+                    <label for="sortby" class="block text-lg font-medium text-gray-600 mb-2">Sort by</label>
+                    <select class="border border-gray-300 rounded-md w-full px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition duration-300 ease-in-out hover:bg-gray-200" name="sortby" id="sortby" onchange="document.getElementById('sortForm').submit()">
+                        <option value="popular" <%= sortby === 'popular' ? 'selected' : '' %>>Popular</option>
+                        <option value="newest" <%= sortby === 'newest' ? 'selected' : '' %>>Newest</option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- Navigation Links for Other Sorting Options -->
+            <div class="mb-8">
+                <h4 class="text-lg font-medium text-gray-600 mb-4 border-b-2 border-gray-300 pb-3">Browse</h4>
+                <div class="space-y-3">
+                    <a class="block text-blue-600 hover:text-blue-800 font-semibold transition duration-300 bg-blue-50 hover:bg-blue-100 p-2 rounded-md" href="/shop?sortby=newCollection" <%= sortby === 'newCollection' ? 'selected' : '' %>>New Collection</a>
+                    <a class="block text-blue-600 hover:text-blue-800 font-semibold transition duration-300 bg-blue-50 hover:bg-blue-100 p-2 rounded-md" href="/shop?sortby=allProducts" <%= sortby === 'allProducts' ? 'selected' : '' %>>All Products</a>
+                    <a class="block text-blue-600 hover:text-blue-800 font-semibold transition duration-300 bg-blue-50 hover:bg-blue-100 p-2 rounded-md" href="/shop?sortby=discounted" <%= sortby === 'discounted' ? 'selected' : '' %>>Discounted Products</a>
+                </div>
+            </div>
+
+            <!-- Filter by Section -->
+            <div class="mb-8">
+                <h4 class="text-lg font-medium text-gray-600 mb-4 border-b-2 border-gray-300 pb-3">Filter by</h4>
+                <div class="space-y-3">
+                    <a class="block text-blue-600 hover:text-blue-800 font-semibold transition duration-300 bg-blue-50 hover:bg-blue-100 p-2 rounded-md" href="/shop?sortby=availability" <%= sortby === 'availability' ? 'selected' : '' %>>Availability</a>
+                    <a class="block text-blue-600 hover:text-blue-800 font-semibold transition duration-300 bg-blue-50 hover:bg-blue-100 p-2 rounded-md" href="/shop?sortby=discount" <%= sortby === 'discount' ? 'selected' : '' %>>Discount</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Section -->
+        <div class="w-full md:w-3/4">
+            <!-- Flash Messages -->
+            <% if (success.length) { %>
+                <div class="bg-green-100 text-green-700 p-4 mb-4 rounded-lg">
+                    <%= success %>
+                </div>
+            <% } %>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <% if(products.length == 0){ %>
+                <div class="col-span-full text-center text-gray-500 text-xl">
+                    Sorry, for now there is nothing to show.
+                </div>
+                <% } %>
+                <% products.forEach(function(product){ %>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300 border border-gray-200">
+                    <div class="relative w-full h-48 bg-[<%= product.bgcolor %>] flex items-center justify-center overflow-hidden">
+                        <img class="h-full max-h-[12rem] object-cover transition-transform transform hover:scale-110 duration-300" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="<%= product.name %>">
+                    </div>
+                    <div class="p-4 bg-white text-gray-800 flex flex-col justify-between h-52 border-t border-gray-200">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 hover:text-blue-600 transition duration-300"><%= product.name %></h3>
+                            <div class="text-lg font-bold mb-2">
+                                <% if (product.discount > 0) { %>
+                                    <span class="line-through text-gray-500">₹ <%= product.price %></span>
+                                    <span class="text-green-600 ml-2 font-semibold">₹ <%= (product.price - product.discount) %></span>
+                                <% } else { %>
+                                    ₹ <%= product.price %>
+                                <% } %>
+                            </div>
+                        </div>
+                        <a class="inline-block mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300" href="/cart/<%= product._id %>">
+                            <i class="ri-add-line"></i> Add to Cart
+                        </a>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

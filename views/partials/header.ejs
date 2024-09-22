@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athletix</title>
+    <link rel="stylesheet" href="/public/css/global.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-['helvetica_now_display']">
+
+    <% if (typeof showNavbar === 'undefined' || showNavbar) { %> <!-- Condition to show/hide navbar -->
+    <!-- Navigation -->
+    <nav class="w-full fixed top-0 left-0 px-5 py-3 flex justify-between bg-white shadow-lg z-50"> <!-- Added z-50 for layering -->
+        <h1 class="text-4xl font-extrabold text-blue-700 tracking-widest uppercase">Athletix</h1>
+        <div class="flex gap-5">
+            <a href="/shop" class="text-xl font-semibold hover:text-blue-500 transition">Shop</a>
+            <a href="/cart" class="text-xl font-semibold hover:text-blue-500 transition">Cart</a>
+            <a href="/account" class="text-xl font-semibold hover:text-red-500 transition">My Account</a>
+            <a href="/user/logout" class="text-xl font-semibold text-red-600 hover:text-red-700 transition">Logout</a>
+        </div>
+    </nav>
+    <% } %>
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<%- include('./partials/header', { showNavbar: false }) %>
+
+<% if(error.length > 0){ %>
+    <div class="absolute top-5 left-1/2 transform -translate-x-1/2 p-4 rounded-md bg-red-500 shadow-lg z-50">
+        <span class="text-white">
+            <%= error %>
+        </span>
+    </div>
+<% } else if(message.length > 0){ %>
+    <div class="absolute top-10 left-1/2 transform -translate-x-1/2 p-4 rounded-md bg-blue-500 shadow-lg z-50">
+        <span class="text-white">
+            <%= message %>
+        </span>
+    </div>
+<% } %>
+
+<div class="w-full h-screen flex flex-col md:flex-row relative z-10">
+    <!-- Left Section with Background Image and Motion Animation -->
+    <div class="w-full md:w-1/2 flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-blue-400 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center motion-background" style="background-image: url('https://example.com/your-image.jpg');"></div>
+        <div class="text-center relative z-20 px-10 py-20">
+            <h3 class="text-5xl font-extrabold mb-4">Welcome to</h3>
+            <h3 class="text-8xl font-extrabold text-yellow-400 typing-effect">Athletix</h3>
+            <p class="text-xl mt-5">The ultimate sports experience, just a click away.</p>
+            <p class="text-sm mt-2 italic">Join us and level up your fitness game.</p>
+        </div>
+    </div>
+
+    <!-- Right Section - Forms -->
+    <div class="w-full md:w-1/2 flex flex-col justify-center items-center bg-white py-20 px-10 z-20">
+        <div class="w-full max-w-lg">
+            <!-- Register Form -->
+            <h4 class="text-3xl font-semibold text-gray-800 mb-6">Create Your Account</h4>
+            <form autocomplete="off" action="/user/register" method="post" class="space-y-4">
+                <input
+                    class="bg-gray-200 block w-full px-5 py-3 rounded-md text-gray-700 border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="text" placeholder="Full Name" name="fullname">
+                <input
+                    class="bg-gray-200 block w-full px-5 py-3 rounded-md text-gray-700 border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="email" placeholder="Email" name="email">
+                <input
+                    class="bg-gray-200 block w-full px-5 py-3 rounded-md text-gray-700 border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="password" placeholder="Password" name="password">
+                <button class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 transition">
+                    Create My Account
+                </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="flex items-center justify-center my-10">
+                <span class="block h-[1px] w-full bg-gray-300"></span>
+                <span class="mx-3 text-gray-500 font-medium">or</span>
+                <span class="block h-[1px] w-full bg-gray-300"></span>
+            </div>
+
+            <!-- Login Form -->
+            <h4 class="text-3xl font-semibold text-gray-800 mb-6">Login to Your Account</h4>
+            <form autocomplete="off" action="/user/login" method="post" class="space-y-4">
+                <input
+                    class="bg-gray-200 block w-full px-5 py-3 rounded-md text-gray-700 border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="email" placeholder="Email" name="email">
+                <input
+                    class="bg-gray-200 block w-full px-5 py-3 rounded-md text-gray-700 border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="password" placeholder="Password" name="password">
+                <button class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 transition">
+                    Login
+                </button>
+            </form>
+
+           
+           
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

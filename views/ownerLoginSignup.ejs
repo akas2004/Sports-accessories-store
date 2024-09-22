@@ -1,0 +1,87 @@
+<%- include('./partials/header',{ showNavbar: false }) %>
+<link rel="stylesheet" href="/css/global.css">
+
+<!-- Background section for Owner Login/Signup -->
+<div class="w-full h-screen flex items-center justify-center bg-gray-200">
+    <div class="w-full max-w-4xl flex flex-col md:flex-row items-center justify-between bg-white shadow-lg rounded-lg overflow-hidden">
+        
+        <!-- Left Section (Title + Description) -->
+        <div class="w-full md:w-1/2 flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-blue-400 text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center motion-background" style="background-image: url('https://www.yourimageurl.com');"></div>
+            <div class="text-center relative z-20 px-10 py-20">
+                <h3 class="text-5xl font-extrabold mb-4">Welcome to</h3>
+                <h3 class="text-8xl font-extrabold text-yellow-400 typing-effect">Athletix</h3>
+                <p class="text-xl mt-5">Join us and expand your business by selling your products online!</p>
+                <p class="text-sm mt-2 italic">#letsmakedigital</p>
+            </div>
+        </div>
+
+        <!-- Right Section (Login and Signup Forms) -->
+        <div class="w-full md:w-1/2 p-8 flex flex-col justify-center items-center bg-white">
+            <h2 class="text-3xl font-bold mb-6 text-gray-700">Owner Login/Signup</h2>
+
+            <!-- Toggle between Login and Signup Forms -->
+            <div class="w-full flex justify-around mb-8">
+                <button id="login-btn" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-300">Login</button>
+                <button id="signup-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-300">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" action="/owner/login" method="POST" class="w-full space-y-4">
+                <input
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="email" placeholder="Owner Email" name="email" required>
+                <input
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="password" placeholder="Password" name="password" required>
+                <button
+                    class="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Login
+                </button>
+            </form>
+
+            <!-- Signup Form (Initially Hidden) -->
+            <form id="signup-form" action="/owner/signup" method="POST" class="w-full space-y-4 hidden">
+                <input
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="text" placeholder="Full Name" name="fullname" required>
+                <input
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="email" placeholder="Owner Email" name="email" required>
+                <input
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="password" placeholder="Password" name="password" required>
+                <input
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="text" placeholder="Owner Contact" name="contact" required>
+                <button
+                    class="w-full py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Sign Up
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const loginBtn = document.getElementById('login-btn');
+    const signupBtn = document.getElementById('signup-btn');
+
+    loginBtn.addEventListener('click', () => {
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+        loginBtn.classList.add('bg-blue-500', 'text-white');
+        signupBtn.classList.remove('bg-green-500', 'text-white');
+    });
+
+    signupBtn.addEventListener('click', () => {
+        signupForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+        signupBtn.classList.add('bg-green-500', 'text-white');
+        loginBtn.classList.remove('bg-blue-500', 'text-white');
+    });
+</script>
+
+<%- include('./partials/footer') %>

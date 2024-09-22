@@ -1,0 +1,68 @@
+<%- include('./partials/header') %>
+
+<body class="font-['helvetica_now_display'] bg-gray-50"> <!-- Light background for contrast -->
+
+  <!-- Main Container -->
+  <div class="container mx-auto mt-24 p-8"> <!-- Added padding for spacing -->
+    <h2 class="text-5xl font-extrabold mb-10 text-blue-900 tracking-wide border-b-4 border-blue-700 pb-3">My Account</h2> <!-- Larger heading with border -->
+    
+    <!-- User Greeting Section -->
+    <div class="flex items-center mb-12">
+      <div class="text-3xl font-semibold text-gray-800">
+        <h3 class="flex items-center">Hello, <span class="ml-2 text-blue-800 font-bold"><%= user.fullname %></span></h3>
+      </div>
+      <a href="/cart" class="ml-auto bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg flex items-center">
+        <i class="ri-shopping-cart-2-line mr-2"></i> Go to Cart <!-- Cart Icon -->
+      </a>
+    </div>
+
+    <!-- Order History Section -->
+    <h3 class="text-4xl font-bold text-blue-900 mb-8">Order History</h3>
+    <% if (orders.length > 0) { %>
+      <div class="space-y-10"> <!-- More space between each order -->
+        <% orders.forEach(order => { %>
+          <div class="bg-white shadow-lg rounded-lg p-8 border border-gray-200 hover:shadow-xl transition-shadow duration-300"> <!-- Hover effect on each order -->
+            <div class="flex justify-between items-center mb-6">
+              <h4 class="text-2xl font-semibold text-blue-700">Order Date: <span class="text-gray-800"><%= new Date(order.orderDate).toLocaleDateString() %></span></h4>
+              <div class="bg-blue-100 text-blue-800 font-bold py-2 px-4 rounded-full shadow-sm">
+                <i class="ri-calendar-line"></i> <%= new Date(order.orderDate).toLocaleDateString() %> <!-- Order date with icon -->
+              </div>
+            </div>
+
+            <!-- Products List -->
+            <div class="mb-6">
+              <h5 class="text-lg font-semibold text-gray-700 mb-2">Products Ordered:</h5>
+              <ul class="list-disc pl-6 space-y-2">
+                <% order.items.forEach(item => { %>
+                  <li class="text-gray-600 flex justify-between">
+                    <strong class="text-blue-600"><%= item.product.name %></strong> 
+                    <span class="text-gray-500">Qty: <%= item.quantity %></span>
+                  </li>
+                <% }) %>
+              </ul>
+            </div>
+
+            <!-- Total Amount -->
+            <div class="flex justify-between items-center mb-4">
+              <h5 class="text-xl font-semibold text-gray-700">Total Amount:</h5>
+              <span class="text-2xl text-blue-600 font-bold">₹<%= order.totalAmount %></span>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="flex justify-between items-center">
+              <h5 class="text-xl font-semibold text-gray-700">Payment Method:</h5>
+              <span class="text-green-600 font-bold text-lg"><%= order.paymentMethod.toUpperCase() %></span>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="bg-white p-10 rounded-lg shadow-lg text-center border border-gray-200">
+        <i class="ri-information-line text-gray-400 text-6xl mb-4"></i> <!-- Info Icon for No Orders -->
+        <p class="text-xl text-gray-600">You have no orders yet.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Footer -->
+  <%- include('./partials/footer') %>
